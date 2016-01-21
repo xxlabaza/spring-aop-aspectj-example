@@ -1,9 +1,8 @@
 package ru.xxlabaza.test.aspectj;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,15 +13,10 @@ import org.springframework.stereotype.Component;
  * <p>
  * @version 1.0.0
  */
+@Slf4j
 @Aspect
 @Component
 class MyAspect {
-
-    private static final Logger LOGGER;
-
-    static {
-        LOGGER = LoggerFactory.getLogger(MyAspect.class);
-    }
 
     @Before(value = "execution(public " + // method access level
                     "void " + // method return type
@@ -30,6 +24,6 @@ class MyAspect {
                     "(java.lang.String)) && args(text)", // method arguments
             argNames = "text")
     public void before (String text) {
-        LOGGER.info("\n\tBEFORE ->\n\tIncoming argument is {}", text);
+        log.info("\n\tBEFORE ->\n\tIncoming argument is {}", text);
     }
 }
